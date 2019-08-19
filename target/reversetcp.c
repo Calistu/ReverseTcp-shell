@@ -1,4 +1,5 @@
 #if defined (_WIN32) || defined (WIN32)
+#include <io.h>
 #include <winsock32.h>
 #endif
 #include "header.h"
@@ -60,5 +61,8 @@ int main(int argc,char *argv[])
 		send(externfd,output,sizeof(output),0);
 		memset(output,0,strlen(output));
 	}
+	#if defined (WIN32)|| defined(_WIN32)
+	WSACleanup();
+	#endif
 	close(externfd);
 }
