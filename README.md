@@ -1,10 +1,10 @@
 # ReverseTcp-shell
 <p>
-  This tool was made for a simple reverse TCP connection
+  This tool is a simple reverse TCP connection
   <br>
   When it's executed, call to the server, and receive commands.
   The commands will be executed and the default output ll be redirected to the server
-  You should compile both sources (client and server with gcc)
+  You should compile both sources (client and server with gcc) with
   gcc file.c -o binary
   
   
