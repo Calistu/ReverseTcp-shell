@@ -8,9 +8,9 @@
   <br>
   You should compile both sources (client and server with gcc) with
   <br>
-  gcc file.c -o binary
+  make -C shell
+  make -C target
+  binarys on directories
   <br>
   <br>
   We cant to move with 'cd' in the directorys, so you should use the 'ls' or 'dir' to know the paths
-  
- 
