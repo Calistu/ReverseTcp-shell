@@ -1,3 +1,5 @@
+#include "connect.h"
+
 int main(int argc, char*argv[])
 {
 	char buffer[300];
