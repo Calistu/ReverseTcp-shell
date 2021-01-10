@@ -14,7 +14,8 @@ int shell(char *cmd);
 DIR *path;
 struct dirent *folder;
 
-char output[300];
+char stdin_output[300];
+
 int externfd;
 
 #define ADDRESS "127.0.0.1"
